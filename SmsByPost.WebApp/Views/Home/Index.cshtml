@@ -13,6 +13,7 @@
                 <input type="hidden" name="godGuid" value="@Guid.NewGuid()">
 
                 <div class="form-group"><label class="col-sm-3 control-label">Address</label><div class="col-sm-9"><input class="form-control" name="address"></div></div>
+                <div class="form-group"><label class="col-sm-3 control-label">From</label><div class="col-sm-9"><input class="form-control" name="originator"></div></div>
                 <div class="form-group"><label class="col-sm-3 control-label">Message</label><div class="col-sm-9"><textarea class="form-control" id="messagebody" name="message"></textarea></div></div>
 
                 <div class="form-group">
@@ -52,13 +53,13 @@
                     <label class="col-sm-3 control-label">Wrapping Paper Pattern</label>
                     <div class="col-sm-9">
                         <div class="radio">
-                            <label><input type="radio" name="paperDesign" value="Sun" checked>&#9728;&#9728;&#9728;</label>
+                            <label><input type="radio" name="paperDesign" value="@WrappingPaperPatterns.Sun" checked>&#9728;&#9728;&#9728;</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" name="paperDesign" value="YingYang">☯☯☯</label>
+                            <label><input type="radio" name="paperDesign" value="@WrappingPaperPatterns.YingYang">☯☯☯</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" name="paperDesign" value="Snow">❄❄❄</label>
+                            <label><input type="radio" name="paperDesign" value="@WrappingPaperPatterns.Snow">❄❄❄</label>
                         </div>
                     </div>
                 </div>
@@ -67,15 +68,12 @@
             }
         </div>
 
-
-
         <div class="panel-heading">Send a Message</div>
         <div class="panel-body">
             <div class="form-group"><label class="col-sm-3 control-label">Message Parts</label><div class="col-sm-9"><span class="form-control" id="parts"></span></div></div>
             <div class="form-group"><label class="col-sm-3 control-label">Character Set</label><div class="col-sm-9"><span class="form-control" id="charaterset"></span></div></div>
             <div class="form-group"><label class="col-sm-3 control-label">Available Characters until next </label><div class="col-sm-9"><span class="form-control" id="available"></span></div></div>
         </div>
-    </div>
     </div>
 </div>
 
