@@ -14,6 +14,7 @@
 
     public enum WrappingPaperPatterns
     {
+        Standard,
         Sun,
         YingYang,
         Snow

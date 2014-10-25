@@ -16,7 +16,7 @@ namespace SmsByPost.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendMessage(Guid godGuid, string address, string message, string deliveryType, string packagingType, string paperDesign, bool wrappingRequired = false)
+        public ActionResult SendMessage(Guid godGuid, string address, string message, string deliveryType, string packagingType, string paperDesign = "Standard", bool wrappingRequired = false)
         {
             var body = message;
 
@@ -35,7 +35,8 @@ namespace SmsByPost.Controllers
 
             var letter = new Letter(godGuid, address, body, parsedDeliveryMethod, parsedPackagingType, wrappingRequired);
 
-            var messageScheduler = new MessageSchedulerService();            
+            IMessageSchedulerService messageScheduler = !message.StartsWith("NOW ") ? (IMessageSchedulerService) new MessageSchedulerService() : new ImmediateDispatchService(); 
+            
             var deliveryTime = messageScheduler.ScheduleLetter(letter, parsedDeliveryMethod);
 
             new AzureBlobService().UploadToAzureBlobStore(letter);
@@ -58,6 +59,11 @@ namespace SmsByPost.Controllers
 
             switch (parsedPaperDesign)
             {
+                case WrappingPaperPatterns.Standard:
+                    builder.Append("*giftwrap* ");
+                    builder.Append(bodyWithSimulatedDamage);
+                    builder.Append(" *giftwrap*");
+                    break;
                 case WrappingPaperPatterns.Snow:
                     builder.Append("❄❄❄❄❄❄❄❄❄❄❄❄❄❄❄❄❄❄❄❄❄");
                     builder.Append(bodyWithSimulatedDamage);

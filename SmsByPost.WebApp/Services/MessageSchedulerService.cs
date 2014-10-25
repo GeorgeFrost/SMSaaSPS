@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.ServiceBus.Messaging;
 using Microsoft.WindowsAzure;
 using SmsByPost.Models;
 
 namespace SmsByPost.Services
 {
-    public class MessageSchedulerService
+    public class MessageSchedulerService : IMessageSchedulerService
     {
         public DateTime ScheduleLetter(Letter letter, DeliveryMethod deliveryMethod)
         {
@@ -40,6 +41,19 @@ namespace SmsByPost.Services
             var deliverySeconds = randomNumberGenerator.Next(0, 60);
 
             return new DateTime(deliveryDate.Year, deliveryDate.Month, deliveryDate.Day, deliveryHour, deliveryMinutes, deliverySeconds);
+        }
+    }
+
+    public interface IMessageSchedulerService
+    {
+        DateTime ScheduleLetter(Letter letter, DeliveryMethod deliveryMethod);
+    }
+
+    public class ImmediateDispatchService : IMessageSchedulerService
+    {
+        public DateTime ScheduleLetter(Letter letter, DeliveryMethod deliveryMethod)
+        {
+            return DateTime.UtcNow.AddSeconds(5);
         }
     }
 }

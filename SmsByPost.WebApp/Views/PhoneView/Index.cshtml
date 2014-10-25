@@ -1,0 +1,32 @@
+﻿@model SmsByPost.Models.PhoneViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<body>
+    <div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">@Model.SubscriberMsisdn</div>
+            <ul id="messages">
+            </ul>
+        </div>
+    </div>
+</body>
+
+@section scripts{
+    <script type="text/javascript">
+        // Enable pusher logging - don't include this in production
+        Pusher.log = function (message) {
+            if (window.console && window.console.log) {
+                window.console.log(message);
+            }
+        };
+
+        var pusher = new Pusher('09e07fa6d1e3db728a17');
+        var channel = pusher.subscribe('@Model.SubscriberMsisdn');
+        channel.bind('sms_dispatched_event', function (data) {
+            $("#messages").prepend("<li>" + data.message + "</li>");
+        });
+</script>
+}
