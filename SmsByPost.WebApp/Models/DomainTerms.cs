@@ -2,7 +2,8 @@
 {
     public enum DeliveryMethod
     {
-        FirstClass
+        FirstClass,
+        Special
     }
 
     public enum Packaging

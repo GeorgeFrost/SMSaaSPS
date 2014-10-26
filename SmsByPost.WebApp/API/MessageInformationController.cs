@@ -49,6 +49,8 @@ namespace SmsByPost.API
             var deliveryMethod = ParseEnum<DeliveryMethod>(deliveryType);
             if (deliveryMethod == DeliveryMethod.FirstClass)
                 price *= 1;
+            else if (deliveryMethod == DeliveryMethod.Special)
+                price *= 1.2m;
             
 
             //protection/packaging
@@ -63,6 +65,11 @@ namespace SmsByPost.API
             //isGiftWrapped
             if (isGiftWrapped)
                 price *= 1.1m;
+
+
+            //special delivery flat rate addition
+            if (deliveryMethod == DeliveryMethod.Special)
+                price += 5.95m; 
 
             return new PricingOption(){ Price = price.ToString()};
         }

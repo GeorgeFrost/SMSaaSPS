@@ -30,6 +30,18 @@ namespace SmsByPost.Services
                         maximumArrivalTime = int.Parse(CloudConfigurationManager.GetSetting("FirstClassDeliveryMaximumTimeDays"));
                     }
                     break;
+                case DeliveryMethod.Special:
+                    if (willBeDelayed)
+                    {
+                        minimumArrivalTime = randomNumberGenerator.Next(1, 1);
+                        maximumArrivalTime = randomNumberGenerator.Next(minimumArrivalTime, 3);
+                    }
+                    else
+                    {
+                        minimumArrivalTime = int.Parse(CloudConfigurationManager.GetSetting("SpecialDeliveryMinimumTimeDays"));
+                        maximumArrivalTime = int.Parse(CloudConfigurationManager.GetSetting("SpecialDeliveryMaximumTimeDays"));
+                    }
+                    break;
                 default:
                     return DateTime.UtcNow;
             }
