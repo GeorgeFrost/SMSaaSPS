@@ -16,7 +16,12 @@
             {
                 <input type="hidden" name="godGuid" value="@Guid.NewGuid()">
 
+
                 <div class="form-group"><label class="col-sm-3 control-label">Phone Number</label><div class="col-sm-9"><input class="form-control" name="address"></div></div>
+
+          
+                <div class="form-group"><label class="col-sm-3 control-label">From</label><div class="col-sm-9"><input class="form-control" name="originator"></div></div>
+
                 <div class="form-group"><label class="col-sm-3 control-label">Message</label><div class="col-sm-9"><textarea class="form-control" id="messagebody" name="message"></textarea></div></div>
                 <div class="form-group"><label class="col-sm-3 control-label">Available Characters until next </label><div class="col-sm-9"><span class="form-control" id="available"></span></div></div>
                <div class="form-group"><label class="col-sm-3 control-label">Message Parts</label><div class="col-sm-9"><span class="form-control" id="parts"></span></div></div>
@@ -50,7 +55,9 @@
                     <label class="col-sm-3 control-label">Wrapping</label>
                     <div class="col-sm-9">
                         <div class="checkbox">
+
                             <label><input type="checkbox" id="wrappingrequired" name="wrappingRequired" value="true">Gift wrap this message?</label>
+
                         </div>
                     </div>
                 </div>
@@ -58,8 +65,6 @@
                 <input class="btn btn-default" name="commit" type="submit" value="Send Message">
             }
         </div>
-
-
 
         <div class="panel-heading">Send a Message</div>
         <div class="panel-body">

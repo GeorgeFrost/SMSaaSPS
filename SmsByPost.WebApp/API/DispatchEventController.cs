@@ -9,12 +9,12 @@ namespace SmsByPost.API
     public class DispatchEventController : ApiController 
     {
         private readonly AzureBlobService _azureBlobService;
-        private readonly AzureBusService _azureBusService;
+        private readonly MessageDispatcherService _azureBusService;
 
         public DispatchEventController()
         {
             _azureBlobService = new AzureBlobService();
-            _azureBusService = new AzureBusService();
+            _azureBusService = new MessageDispatcherService();
         }
 
         // POST: api/Dispatch/5
