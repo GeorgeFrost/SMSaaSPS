@@ -142,7 +142,7 @@
 
         function UpdatePriceOption(priceOption) {
             var roundedPrice = Math.round((priceOption.Price) * 100) / 100;
-            $("#price").text(roundedPrice);
+            $("#price").text(roundedPrice.toFixed(2));
         }
 
         var resultsXHR, resultsTimer, resultsId = 0;

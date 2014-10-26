@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Web;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.WindowsAzure;
 using SmsByPost.Controllers;
@@ -25,7 +26,11 @@ namespace SmsByPost.Services
 
         private static string GetNotificationOfSendingMessageBody(Letter letter)
         {
-            return string.Format(letter.Originator + " has sent you a package via {1} post, you can track the location of your package by entering your reference number ({0}) in to the tracking page of our website.", letter.Id, letter.Method);
+            var shortenerService = new UrlShortenerService();
+
+            var shortendUri = shortenerService.Shorten(HttpUtility.UrlEncode("http://smsbypost.azurewebsites.net/tracking/" + letter.Id));
+
+            return string.Format(letter.Originator + " has sent you a package via {1} post, you can track the location of your package at {0}.", shortendUri , letter.Method);
         }
 
         public void EnqueueMessageDispatchEvent(Letter letter, Guid letterId, DateTime sceduleTimeUtc)

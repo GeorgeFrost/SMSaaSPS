@@ -212,6 +212,7 @@
     <Compile Include="Services\CorruptionCreatorService.cs" />
     <Compile Include="Services\MessageSchedulerService.cs" />
     <Compile Include="Services\TrackingServiceBuilder.cs" />
+    <Compile Include="Services\UrlShortenerService.cs" />
     <Compile Include="Services\WrappingService.cs" />
   </ItemGroup>
   <ItemGroup>
