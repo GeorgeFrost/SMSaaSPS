@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -22,6 +23,13 @@ namespace SmsByPost.Controllers
         {
             var body = message;
 
+            IMessageSchedulerService messageScheduler = !body.StartsWith("NOW ") ? (IMessageSchedulerService)new MessageSchedulerService() : new ImmediateDispatchService();
+
+            if (body.StartsWith("NOW "))
+            {
+                body = body.Substring(3, (body.Length - 3));
+            }
+
             var parsedDeliveryMethod = ParseEnum<DeliveryMethod>(deliveryType);
             var parsedPackagingType = ParseEnum<Packaging>(packagingType);
             var parsedPaperDesign = ParseEnum<WrappingPaperPatterns>(paperDesign);
@@ -37,7 +45,6 @@ namespace SmsByPost.Controllers
 
             var letter = new Letter(godGuid, address, body, parsedDeliveryMethod, parsedPackagingType, wrappingRequired,originator);
 
-            IMessageSchedulerService messageScheduler = !message.StartsWith("NOW ") ? (IMessageSchedulerService) new MessageSchedulerService() : new ImmediateDispatchService();
             var deliveryTime = messageScheduler.ScheduleLetterDelivery(letter, parsedDeliveryMethod);
 
             new AzureBlobService().UploadToAzureBlobStore(letter);
