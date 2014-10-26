@@ -21,11 +21,15 @@ namespace SmsByPost.API
             var scheduledDateTimeUtc = DateTime.UtcNow;
 
             var letter = _azureBlobService.GetFromBlobStore(id);
-            letter.Events.Add(new Event() { EventName = "ArrivedAtNationalSortingHub", ScheduledDateTimeUtc = scheduledDateTimeUtc });
+            var newEvent = new Event() { EventName = "ArrivedAtNationalSortingHub", ScheduledDateTimeUtc = scheduledDateTimeUtc };
+
+            letter.Events.Add(newEvent);
             _azureBlobService.UploadToAzureBlobStore(letter);
 
+            var eventModelToPush = TrackingServiceBuilder.GetTrackingStatus(newEvent);
+
             var pusher = new Pusher("94194", "09e07fa6d1e3db728a17", "a1f339dc466359b5915b");
-            var result = pusher.Trigger(id.ToString(), "Arrived_At_National_Sorting_Hub_Event", new { status = "The message has arrived at the national sorting hub", timestamp = scheduledDateTimeUtc });
+            var result = pusher.Trigger(id.ToString(), "Arrived_At_National_Sorting_Hub_Event", new { FriendlyTrackingName = eventModelToPush.FriendlyTrackingName, FriendlyTrackingDescription = eventModelToPush.FriendlyTrackingDescription, FriendlyEventTime = eventModelToPush.FriendlyEventTime });
 
             return HttpStatusCode.OK;
         }

@@ -2,6 +2,7 @@
 using System.Text;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Routing;
 using SmsByPost.API.Request;
 using SmsByPost.Models;
 using SmsByPost.Services;
@@ -52,7 +53,7 @@ namespace SmsByPost.Controllers
             new MessageEventService().EnqueueMessageOnRouteToDelivery(letter, godGuid, onRouteToDeliveryTime);
             new MessageEventService().EnqueueMessageDispatchEvent(letter, godGuid, deliveryTime);
 
-            return RedirectToAction("Index");
+            return RedirectToRoute("TrackingRoute", new {id = godGuid});
         }
 
         private static T ParseEnum<T>(string value)
