@@ -12,19 +12,19 @@
         <div class="col-lg-1"><img src="@Url.Content("~/Content/Images/crown.png")" /></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">SMS</h1></div>
+        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin letter-spaced"><strong>SMS</strong></h1></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">as a</h1></div>
+        <div class="col-lg-1"><h2 class="override-red text-center override-no-margin letter-spaced"><strong>AS A</strong></h2></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h3 class="override-red text-center override-no-margin">SIMULATED</h3></div>
+        <div class="col-lg-1"><h3 class="override-red text-center override-no-margin letter-spaced"><strong>SIMULATED</strong></h3></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">POSTAL</h1></div>
+        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin letter-spaced"><strong>POSTAL</strong></h1></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">SERVICE</h1></div>
+        <div class="col-lg-1"><h2 class="override-red text-center override-no-margin letter-spaced"><strong>SERVICE</strong></h2></div>
     </div>
 </div>
 <div style="height:30px;"></div>
@@ -85,7 +85,6 @@
         <div class="panel-heading override-background override-border"><h4>Additional Protection</h4></div>
         <div class="panel-body">
             <div class="form-group">
-                <label class="col-sm-3 control-label">Protection</label>
                 <div class="col-sm-9">
                     <div class="radio">
                         <label><input type="radio" name="packagingType" value="@Packaging.Envelope" checked>Envelope</label>
@@ -103,12 +102,12 @@
     
 
     <div class="panel panel-primary override-border">
-        <div class="panel-heading override-background override-border"><h4>Gift Wrapping Service</h4></div>
+        <div class="panel-heading override-background override-border"><h4>...Sending a special message?</h4></div>
         <div class="panel-body">
             <div class="form-group">
                 <div class="col-sm-9">
                     <div class="checkbox">
-                        <label><input type="checkbox" id="wrappingrequired" name="wrappingRequired" value="true">Gift wrap this message?</label>
+                        <label><input type="checkbox" id="wrappingrequired" name="wrappingRequired" value="true"><span class="glyphicon glyphicon-gift"> </span><strong> Add Gift Wrapping</strong><i> Deliver your message in style!</i></label>
                     </div>
                 </div>
             </div>
@@ -121,12 +120,13 @@
     <div class="footera">
         <div class="row">
             <div class="col-xs-1"></div>
-            <div class="col-xs-10"><h1 class="col-sm-6 control-label override-h1">Total cost : £<span id="price">0.00</span></h1></div>
+            <div class="col-xs-7"><h1 class="col-sm-6 control-label override-h1 letter-spaced">TOTAL COST</h1></div>
+            <div class="col-xs-3"><h1 class="col-sm-6 control-label override-h1 letter-spaced">£<span id="price">0.00</span></h1></div>
             <div class="col-xs-1"></div>
         </div>
         <div class="row">
             <div class="col-xs-1"></div>
-    <div class="col-xs-10"><input class="btn btn-primary btn-lg btn-block override-background override-border-white" name="commit" type="submit" value="Send Message"></div>
+            <div class="col-xs-10"><button type="button" class="btn btn-primary btn-lg btn-block override-background override-border-white letter-spaced" name="commit" type="submit" id="submitFormBtn"><span class="glyphicon glyphicon-send"> </span> SEND</button></div>
             <div class="col-xs-1"></div>
         </div>
     </div>
@@ -168,6 +168,11 @@
 
         $('#wrappingrequired').change(function () {
             calculate();
+        });
+
+        $('#submitFormBtn').on('click', function(event) {
+            event.preventDefault(); 
+            $("#mainForm").submit();
         });
 
 

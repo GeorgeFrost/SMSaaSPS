@@ -73,3 +73,8 @@ textarea {
     margin: 0;
 }
 
+
+.letter-spaced {
+    letter-spacing: 5px;
+}
+
