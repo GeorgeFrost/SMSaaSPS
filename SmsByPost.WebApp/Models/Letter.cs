@@ -16,6 +16,8 @@ namespace SmsByPost.Models
         public DeliveryMethod Method;
         public Guid Id;
 
+        public List<Event> Events { get; set; }
+
         public Letter(Guid id, string address, string message, DeliveryMethod method, Packaging packagingType, bool wrapped, string originator)
         {
             Wrapped = wrapped;
@@ -25,10 +27,19 @@ namespace SmsByPost.Models
             Address = address;
             Message = message;
             Method = method;
+
+            Events = new List<Event>();
         }
 
         public Letter()
         {
+            Events = new List<Event>();
         }
+    }
+
+    public class Event
+    {
+        public string EventName { get; set; }
+        public DateTime ScheduledDateTimeUtc { get; set; }
     }
 }

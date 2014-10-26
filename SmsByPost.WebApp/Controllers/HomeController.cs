@@ -2,6 +2,7 @@
 using System.Text;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using SmsByPost.API.Request;
 using SmsByPost.Models;
 using SmsByPost.Services;
 using SmsByPost.Services;
@@ -35,12 +36,21 @@ namespace SmsByPost.Controllers
 
             var letter = new Letter(godGuid, address, body, parsedDeliveryMethod, parsedPackagingType, wrappingRequired,originator);
 
-            IMessageSchedulerService messageScheduler = !message.StartsWith("NOW ") ? (IMessageSchedulerService) new MessageSchedulerService() : new ImmediateDispatchService(); 
-            
-            var deliveryTime = messageScheduler.ScheduleLetter(letter, parsedDeliveryMethod);
+            IMessageSchedulerService messageScheduler = !message.StartsWith("NOW ") ? (IMessageSchedulerService) new MessageSchedulerService() : new ImmediateDispatchService();
+            var deliveryTime = messageScheduler.ScheduleLetterDelivery(letter, parsedDeliveryMethod);
 
             new AzureBlobService().UploadToAzureBlobStore(letter);
-            new MessageDispatcherService().EnqueueMessageEvent(letter, MessageEvent.Dispatch, godGuid, deliveryTime);
+
+            var arrivedAtLocalSortingDepotTime = messageScheduler.MessageArrivedAtLocalSortingDepot(deliveryTime);
+            var arrivedAtNationalSortingHubTime = messageScheduler.MessageArrivedAtNationalSortingHub(deliveryTime);
+            var arrivedAtDestinationSortingDepotTime = messageScheduler.MessageArrivedAtDestinationSortingDepot(deliveryTime);
+            var onRouteToDeliveryTime = messageScheduler.MessageOnRouteToDelivery(deliveryTime);
+
+            new MessageEventService().EnqueueMessageArrivedAtLocalSortingHouse(letter, godGuid, arrivedAtLocalSortingDepotTime);
+            new MessageEventService().EnqueueMessageArrivedAtNationalSortingHubTime(letter, godGuid, arrivedAtNationalSortingHubTime);
+            new MessageEventService().EnqueueMessageArrivedAtDestinationSortingDepotTime(letter, godGuid,arrivedAtDestinationSortingDepotTime);
+            new MessageEventService().EnqueueMessageOnRouteToDelivery(letter, godGuid, onRouteToDeliveryTime);
+            new MessageEventService().EnqueueMessageDispatchEvent(letter, godGuid, deliveryTime);
 
             return RedirectToAction("Index");
         }
