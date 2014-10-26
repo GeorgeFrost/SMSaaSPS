@@ -2,78 +2,140 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
 @{
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<div >
-    <div class="panel panel-primary">
 
-        <div class="panel-heading">Send a Message</div>
-        <div class="panel-body">
-            @using (Html.BeginForm("SendMessage", "Home", FormMethod.Post, new { Id = "mainForm"}))
-            {
-                <input type="hidden" name="godGuid" value="@Guid.NewGuid()">
-
-
-                <div class="form-group"><label class="col-sm-3 control-label">Phone Number</label><div class="col-sm-9"><input class="form-control" name="address"></div></div>
-
-          
-                <div class="form-group"><label class="col-sm-3 control-label">From</label><div class="col-sm-9"><input class="form-control" name="originator"></div></div>
-
-                <div class="form-group"><label class="col-sm-3 control-label">Message</label><div class="col-sm-9"><textarea class="form-control" id="messagebody" name="message"></textarea></div></div>
-                <div class="form-group"><label class="col-sm-3 control-label">Available Characters until next </label><div class="col-sm-9"><span class="form-control" id="available"></span></div></div>
-               <div class="form-group"><label class="col-sm-3 control-label">Message Parts</label><div class="col-sm-9"><span class="form-control" id="parts"></span></div></div>
-                <div class="form-group"><label class="col-sm-3 control-label">Character Set</label><div class="col-sm-9"><span class="form-control" id="charaterset"></span></div></div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Class</label>
-                    <div class="col-sm-9">
-                        <div class="radio">
-                            <label><input type="radio" name="deliveryType" value="FirstClass" checked>First Class</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="deliveryType" value="Special">Special Delivery</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Protection</label>
-                    <div class="col-sm-9">
-                        <div class="radio">
-                            <label><input type="radio" name="packagingType" value="@Packaging.Envelope" checked>Envelope</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="packagingType" value="@Packaging.PaddedEnvelope">Padded Envelope</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="packagingType" value="@Packaging.Parcel">Parcel</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Wrapping</label>
-                    <div class="col-sm-9">
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="wrappingrequired" name="wrappingRequired" value="true">Gift wrap this message?</label>
-                        </div>
-                    </div>
-                </div>
-
-                <input class="btn btn-default" name="commit" type="submit" value="Send Message">
-            }
-        </div>
-
-        <div class="panel-heading">Send a Message</div>
-        <div class="panel-body">
-           <div class="form-group"><label class="col-sm-3 control-label">Price £</label><div class="col-sm-9"><span class="form-control" id="price"></span></div></div>
-        </div>
+<div>
+    <div class="row text-center">
+        <div class="col-lg-1"><img src="@Url.Content("~/Content/Images/crown.png")" /></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">SMS</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">as a</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h3 class="override-red text-center override-no-margin">SIMULATED</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">POSTAL</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin">SERVICE</h1></div>
     </div>
 </div>
+<div style="height:30px;"></div>
 
+@using (Html.BeginForm("SendMessage", "Home", FormMethod.Post, new { Id = "mainForm" }))
+{
+    <div class="panel panel-primary override-border">
+        <div class="panel-heading override-background override-border"><h4>Send an SMS...</h4></div>
+        <div class="panel-body">
+            <input type="hidden" name="godGuid" value="@Guid.NewGuid()">
+
+            <div class="form-group"><label class="col-sm-3 control-label">Phone Number</label><div class="col-sm-9"><input placeholder="i.e. 07450 029 043" class="form-control" name="address"></div></div>
+
+            <div class="form-group"><label class="col-sm-3 control-label">From</label><div class="col-sm-9"><input placeholder="Your name"class="form-control" name="originator"></div></div>
+
+            <div class="form-group"><label class="col-sm-3 control-label">Message</label><div class="col-sm-9"><textarea placeholder="Type your message you wish to send here. The message cost will increase as you send more SMS parts" class="form-control" id="messagebody" name="message"></textarea></div></div>
+
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-9">Remaining characters for this message part:</div>
+                <div class="col-xs-1"><span id="available">-</span></div>
+                <div class="col-xs-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-9">Total message parts:</div>
+                <div class="col-xs-1"><span id="parts">-</span></div>
+                <div class="col-xs-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-9">Content type:</div>
+                <div class="col-xs-1"><span id="charaterset">-</span></div>
+                <div class="col-xs-1"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary override-border">
+        <div class="panel-heading override-background override-border"><h4>Delivery method</h4></div>
+        <div class="panel-body">
+
+            <div class="form-group">
+
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="deliveryType" value="FirstClass" checked>First Class (Estimated 1-3 Working days)</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="deliveryType" value="Special">Special Delivery (Gauranteed Next Day)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary override-border">
+        <div class="panel-heading override-background override-border"><h4>Additional Protection</h4></div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Protection</label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="packagingType" value="@Packaging.Envelope" checked>Envelope</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="packagingType" value="@Packaging.PaddedEnvelope">Padded Envelope</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="packagingType" value="@Packaging.Parcel">Parcel</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="panel panel-primary override-border">
+        <div class="panel-heading override-background override-border"><h4>Gift Wrapping Service</h4></div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="wrappingrequired" name="wrappingRequired" value="true">Gift wrap this message?</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="clearfix"></div>
+    
+    <div class="footera">
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10"><h1 class="col-sm-6 control-label override-h1">Total cost : £<span id="price">0.00</span></h1></div>
+            <div class="col-xs-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1"></div>
+    <div class="col-xs-10"><input class="btn btn-primary btn-lg btn-block override-background override-border-white" name="commit" type="submit" value="Send Message"></div>
+            <div class="col-xs-1"></div>
+        </div>
+    </div>
+
+
+
+}
+
+<div style="height:70px;"></div>
 
 @section scripts
 {
@@ -86,17 +148,17 @@
         }
 
         function UpdatePriceOption(priceOption) {
-            var roundedPrice = Math.round((priceOption.Price) * 100) /100;
+            var roundedPrice = Math.round((priceOption.Price) * 100) / 100;
             $("#price").text(roundedPrice);
         }
 
         var resultsXHR, resultsTimer, resultsId = 0;
 
-        $('#messagebody').keyup(function() {
+        $('#messagebody').keyup(function () {
             calculate();
         });
 
-        $("input[name=packagingType]:radio").change(function() {
+        $("input[name=packagingType]:radio").change(function () {
             calculate();
         });
 
@@ -123,10 +185,10 @@
 
             clearTimeout(resultsTimer);
             if (resultsXHR) resultsXHR.abort();
-            resultsTimer = setTimeout(function() {
+            resultsTimer = setTimeout(function () {
                 var id = ++resultsId;
 
-                resultsXHR = $.get(url, function(data) {
+                resultsXHR = $.get(url, function (data) {
                     resultsXHR = null;
                     if (id != resultsId)
                         return;
@@ -137,5 +199,4 @@
         }
 
     </script>
-
 }

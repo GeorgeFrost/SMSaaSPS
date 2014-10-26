@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -20,9 +20,56 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 700px;
 }
 
 #content {
     margin-top: 30px;
 }
+
+.override-font {
+    font-family: sans-serif !important;
+}
+
+
+.override-background {
+      background-color: rgba(193,12,6,1) !important;
+    
+}
+
+.override-background-light {
+    background-color: rgba(193,12,6,0.1) !important;
+}
+
+.override-border {
+  
+      border-color: rgba(193,12,6,1) !important;
+}
+
+.override-border-white {
+  
+      border-color: white !important;
+}
+
+.override-h1 {
+    color:white !important;
+}
+
+.override-red {
+    color:rgba(193,12,6,1) !important;
+}
+
+
+.footera {
+    background: rgba(193,12,6,1);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 150px;
+}    
+
+.override-no-margin {
+    margin: 0;
+}
+

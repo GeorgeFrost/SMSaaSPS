@@ -58,9 +58,9 @@ namespace SmsByPost.API
             if (packaging == Packaging.Envelope)
                 price *= 1;
             else if (packaging == Packaging.PaddedEnvelope)
-                price *= 1.1m;
+                price *= 1.2m;
             else if (packaging == Packaging.Parcel)
-                price *= 1.3m;
+                price *= 1.4m;
             
             //isGiftWrapped
             if (isGiftWrapped)

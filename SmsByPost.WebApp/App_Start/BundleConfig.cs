@@ -27,6 +27,17 @@ namespace SmsByPost
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new StyleBundle("~/Content/css2").Include(
+                      "~/Content/bootstrapoverride.full.css",
+                      "~/Content/First_page.style.css",
+                      "~/Content/hovergallery.full.css",
+                      "~/magnific-popup.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/stuffs").Include(
+                      "~/Scripts/main.js",
+                      "~/Scripts/lgscroll.js",
+                      "~/Scripts/jquery.photoset-grid.js"));
+
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;
