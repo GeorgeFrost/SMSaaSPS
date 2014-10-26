@@ -9,22 +9,22 @@
 
 <div>
     <div class="row text-center">
-        <div class="col-lg-1"><img src="@Url.Content("~/Content/Images/crown.png")" /></div>
+        <div class=""><img src="@Url.Content("~/Content/Images/crown.png")" /></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin letter-spaced"><strong>SMS</strong></h1></div>
+        <div class=""><h1 class="override-red text-center override-no-margin letter-spaced"><strong>SMS</strong></h1></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h2 class="override-red text-center override-no-margin letter-spaced"><strong>AS A</strong></h2></div>
+        <div class=""><h2 class="override-red text-center override-no-margin letter-spaced"><strong>AS A</strong></h2></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h3 class="override-red text-center override-no-margin letter-spaced"><strong>SIMULATED</strong></h3></div>
+        <div class=""><h3 class="override-red text-center override-no-margin letter-spaced"><strong>SIMULATED</strong></h3></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin letter-spaced"><strong>POSTAL</strong></h1></div>
+        <div class=""><h1 class="override-red text-center override-no-margin letter-spaced"><strong>POSTAL</strong></h1></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"><h2 class="override-red text-center override-no-margin letter-spaced"><strong>SERVICE</strong></h2></div>
+        <div class=""><h2 class="override-red text-center override-no-margin letter-spaced"><strong>SERVICE</strong></h2></div>
     </div>
 </div>
 <div style="height:30px;"></div>
@@ -41,24 +41,23 @@
             <div class="form-group"><label class="col-sm-3 control-label">From</label><div class="col-sm-9"><input placeholder="Your name"class="form-control" name="originator"></div></div>
 
             <div class="form-group"><label class="col-sm-3 control-label">Message</label><div class="col-sm-9"><textarea placeholder="Type your message you wish to send here. The message cost will increase as you send more SMS parts" class="form-control" id="messagebody" name="message"></textarea></div></div>
-
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-9">Remaining characters for this message part:</div>
-                <div class="col-xs-1"><span id="available">-</span></div>
-                <div class="col-xs-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-9">Total message parts:</div>
-                <div class="col-xs-1"><span id="parts">-</span></div>
-                <div class="col-xs-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-9">Content type:</div>
-                <div class="col-xs-1"><span id="charaterset">-</span></div>
-                <div class="col-xs-1"></div>
+            
+            <div class="row" style="margin-left:5px; margin-top:10px;">
+                <div class="row">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-4"> Remaining Characters:</div>
+                    <div class="col-xs-5"><span id="available">-</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-4"> Parts:</div>
+                    <div class="col-xs-5"><span id="parts">1</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-4"> Content:</div>
+                    <div class="col-xs-5"><span id="charaterset">N/A</span></div>
+                </div>
             </div>
         </div>
     </div>
