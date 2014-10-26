@@ -1,0 +1,125 @@
+﻿@using SmsByPost.Controllers
+@using SmsByPost.Models
+@model TrackingModel
+@{
+    ViewBag.Title = "Home Page";
+}
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div>
+    <div class="row text-center">
+        <div class="col-lg-1"><img src="@Url.Content("~/Content/Images/crown.png")" /></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h1 class="override-red text-center override-no-margin letter-spaced"><strong>TRACKING</strong></h1></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h2 class="override-red text-center override-no-margin letter-spaced"><strong>DELIVERY</strong></h2></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"><h3 class="override-red text-center override-no-margin letter-spaced">@Model.LetterId</h3></div>
+    </div>
+</div>
+<div style="height:30px;"></div>
+
+@foreach (TrackingStatus status in Model.TrackingStatuses.OrderByDescending(x => x.EventTime))
+{
+    <div class="panel panel-primary override-border">
+        <div class="panel-heading override-background override-border"><h4>@status.FriendlyTrackingName</h4></div>
+        <div class="panel-body">
+            <input type="hidden" name="godGuid" value="@Guid.NewGuid()">
+
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-5">@status.FriendlyTrackingDescription</div>
+                <div class="col-xs-5">@status.FriendlyEventTime</div>
+                <div class="col-xs-1"></div>
+            </div>
+            
+        </div>
+    </div>
+}
+
+    <div class="clearfix"></div>
+
+    <div class="footera">
+        <div style="height:12px"></div>
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10"><button type="button" class="btn btn-primary btn-lg btn-block override-background override-border-white letter-spaced" name="commit" type="submit" id="submitFormBtn"> BACK</button></div>
+            <div class="col-xs-1"></div>
+        </div>
+    </div>
+
+
+
+@section scripts
+{
+    <script language="javascript">
+
+        function UpdateMessageInfo(MessageInformation) {
+            $("#parts").text(MessageInformation.Parts);
+            $("#charaterset").text(MessageInformation.CharacterSet);
+            $("#available").text(MessageInformation.CharsLeft);
+        }
+
+        function UpdatePriceOption(priceOption) {
+            var roundedPrice = Math.round((priceOption.Price) * 100) / 100;
+            $("#price").text(roundedPrice);
+        }
+
+        var resultsXHR, resultsTimer, resultsId = 0;
+
+        $('#messagebody').keyup(function () {
+            calculate();
+        });
+
+        $("input[name=packagingType]:radio").change(function () {
+            calculate();
+        });
+
+        $("input[name=deliveryType]:radio").change(function () {
+            calculate();
+        });
+
+        $('#wrappingrequired').change(function () {
+            calculate();
+        });
+
+        $('#submitFormBtn').on('click', function(event) {
+            window.location.replace('http://smsbypost.azurewebsites.net');
+        });
+
+
+        function calculate() {
+
+            if ($("#messagebody").val() == "")
+                return;
+
+            var wrappingoption = $("#wrappingrequired").is(':checked') ? "true" : "false";
+
+            var url = "/api/messageinformation?message=" + $("#messagebody").val();
+            url += "&isGiftWrapped=" + wrappingoption;
+            url += "&protection=" + $('input[name=packagingType]:checked', '#mainForm').val();
+            url += "&deliveryMethod=" + $('input[name=deliveryType]:checked', '#mainForm').val();
+
+            clearTimeout(resultsTimer);
+            if (resultsXHR) resultsXHR.abort();
+            resultsTimer = setTimeout(function () {
+                var id = ++resultsId;
+
+                resultsXHR = $.get(url, function (data) {
+                    resultsXHR = null;
+                    if (id != resultsId)
+                        return;
+                    UpdateMessageInfo(data.MessageInformation);
+                    UpdatePriceOption(data.PriceOption);
+                });
+            }, 500);
+        }
+
+    </script>
+}

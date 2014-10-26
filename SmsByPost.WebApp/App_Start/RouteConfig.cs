@@ -44,6 +44,12 @@ namespace SmsByPost
            );
 
             routes.MapRoute(
+                name: "TrackingRoute",
+                url: "tracking/{id}",
+                defaults: new { controller = "Tracking", action = "Index"}
+            );
+
+            routes.MapRoute(
                 name: "PhoneViewRoute",
                 url: "phoneview/{msisdn}",
                 defaults: new { controller = "PhoneView", action = "Index", id = UrlParameter.Optional }
