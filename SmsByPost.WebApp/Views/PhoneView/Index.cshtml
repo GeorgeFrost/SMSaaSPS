@@ -25,7 +25,7 @@
 
         var pusher = new Pusher('09e07fa6d1e3db728a17');
         var channel = pusher.subscribe('@Model.SubscriberMsisdn');
-        channel.bind('sms_dispatched_event', function (data) {
+        channel.bind('sms_dispatched_event_v2', function (data) {
             $("#messages").prepend("<li>" + data.message + "</li>");
         });
 </script>

@@ -24,11 +24,11 @@ namespace SmsByPost.API
             var scheduledDateTimeUtc = DateTime.UtcNow;
 
             var letter = _azureBlobService.GetFromBlobStore(id);
-            letter.Events.Add(new Event() { EventName = "sms_dispatched_event", ScheduledDateTimeUtc = scheduledDateTimeUtc });
+            letter.Events.Add(new Event() { EventName = "sms_dispatched_event_v2", ScheduledDateTimeUtc = scheduledDateTimeUtc });
             _azureBlobService.UploadToAzureBlobStore(letter);
 
             var pusher = new Pusher("94194", "09e07fa6d1e3db728a17", "a1f339dc466359b5915b");
-            var result = pusher.Trigger(new[] { letter.Address, id.ToString() }, "sms_dispatched_event", new { message = letter.Message, msisdn = letter.Address });
+            var result = pusher.Trigger(new[] { letter.Address, id.ToString() }, "sms_dispatched_event_v2", new { message = letter.Message, msisdn = letter.Address });
 
             _messageEventService.EnqueueMessage(letter);
             
